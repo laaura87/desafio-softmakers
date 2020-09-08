@@ -6,6 +6,7 @@ export default new (class ContactController {
   async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const findContact = await Contacts.show(id);
+
     if (!findContact) return res.json({ Error: "Contato não encontrado" });
 
     return res.json({ findContact });
@@ -18,7 +19,7 @@ export default new (class ContactController {
   }
 
   async create(req: Request, res: Response): Promise<Response> {
-    const { image, name, surname, phone, email, adress } = req.body;
+    const { name, surname, phone, email, adress } = req.body;
 
     const contact = {
       image: req.file.filename,
@@ -30,7 +31,7 @@ export default new (class ContactController {
     };
 
     try {
-      const insertContact = await Contacts.create(contact);
+      await Contacts.create(contact);
       return res.status(201).send();
     } catch (error) {
       return res.status(400).json({
@@ -41,7 +42,7 @@ export default new (class ContactController {
 
   async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { image, name, surname, phone, email, adress } = req.body;
+    const { name, surname, phone, email, adress } = req.body;
 
     const contact = {
       image: req.file.filename,
@@ -54,7 +55,7 @@ export default new (class ContactController {
     };
 
     try {
-      const insertContact = await Contacts.update(contact);
+      await Contacts.update(contact);
 
       return res.status(201).send();
     } catch (error) {

@@ -6,10 +6,10 @@ import multerConfig from "./config/multer";
 const routes = express();
 const upload = multer(multerConfig);
 
-routes.get("/");
-routes.get("/:id");
-routes.post("/signup", upload.single("image"), ContactController.post);
-routes.put("/:id/edit");
-routes.delete("/:id/edit");
+routes.get("/", ContactController.index); //feito
+routes.get("/:id", ContactController.show); //feito
+routes.post("/signup", upload.single("image"), ContactController.create); //feito
+routes.put("/:id/edit", upload.single("image"), ContactController.update); //feito
+routes.delete("/:id/delete", ContactController.destroy); //feito
 
 export default routes;

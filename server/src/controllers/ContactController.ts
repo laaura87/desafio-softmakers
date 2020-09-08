@@ -1,83 +1,76 @@
 import { Response, Request } from "express";
 import db from "../database/connection";
-
-interface Contact {
-  image: string;
-  name: string;
-  surname: string;
-  phone: string;
-  email: string;
-  adress: string;
-}
+import Contacts from "../models/Contacts";
 
 export default new (class ContactController {
   async show(req: Request, res: Response): Promise<Response> {
-    const contacts = await db("contact").select("*");
+    const { id } = req.params;
+    const findContact = await Contacts.show(id);
+    if (!findContact) return res.json({ Error: "Contato não encontrado" });
+
+    return res.json({ findContact });
+  }
+
+  async index(req: Request, res: Response): Promise<Response> {
+    const contacts = await Contacts.index();
 
     return res.json({ contacts });
   }
 
-  async post(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<Response> {
     const { image, name, surname, phone, email, adress } = req.body;
 
-    const trx = await db.transaction();
+    const contact = {
+      image: req.file.filename,
+      name,
+      surname,
+      phone,
+      email,
+      adress,
+    };
 
     try {
-      const insertContact = trx("contact").insert({
-        image,
-        name,
-        surname,
-        phone,
-        email,
-        adress,
-      });
-
-      await trx.commit();
+      const insertContact = await Contacts.create(contact);
       return res.status(201).send();
     } catch (error) {
-      await trx.rollback();
       return res.status(400).json({
         error: "Erro inexperado ao criar um novo contato.",
       });
     }
   }
 
-  async showOne(req: Request, res: Response) {}
-
-  async edit(req: Request, res: Response): Promise<Response> {
-    const { image, name, surname, phone, email, adress } = req.body;
+  async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
+    const { image, name, surname, phone, email, adress } = req.body;
 
-    const trx = await db.transaction();
+    const contact = {
+      image: req.file.filename,
+      name,
+      surname,
+      phone,
+      email,
+      adress,
+      id,
+    };
+
     try {
-      const insertContact = trx("contact")
-        .update({
-          image,
-          name,
-          surname,
-          phone,
-          email,
-          adress,
-        })
-        .where({ id: id });
+      const insertContact = await Contacts.update(contact);
 
-      await trx.commit();
       return res.status(201).send();
     } catch (error) {
-      await trx.rollback();
       return res.status(400).json({
         error: "Erro inexperado ao editar o contato.",
       });
     }
   }
 
-  async delete(req: Request, res: Response): Promise<Response> {
-    const { id } = req.body;
+  async destroy(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-    const findUser = await db("contact").where({ id: id }).del();
+    const findUser = await Contacts.destroy(id);
 
-    if (!findUser) return res.send("Contato não encontrado");
+    if (!findUser) return res.json({ error: "Contato não encontrado" });
 
-    return res.send(`Contato deletado`);
+    return res.json({ Messege: "Contato deletado com sucesso" });
   }
 })();

@@ -8,7 +8,12 @@ export async function up(knex: Knex) {
     table.string("surname").notNullable();
     table.string("email").notNullable().unique();
     table.string("phone").notNullable();
-    table.string("adress").notNullable();
+    table.string("cep");
+    table.string("state").notNullable();
+    table.string("city").notNullable();
+    table.string("street").notNullable();
+    table.string("neighborhood").notNullable();
+    table.string("number");
   });
 }
 

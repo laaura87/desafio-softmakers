@@ -7,7 +7,12 @@ export interface Contact {
   surname: string;
   phone: string;
   email: string;
-  adress: string;
+  cep?: string;
+  state: string;
+  city: string;
+  street: string;
+  neighborhood: string;
+  number?: string;
 }
 
 const table = db("contact");
@@ -26,6 +31,8 @@ export default {
     return await table.update(contact).where({ id: contact.id });
   },
   async destroy(id: string | number): Promise<Contact> {
-    return await table.where({ id: id }).del();
+    const contact = await table.where({ id: id }).first();
+    await table.where({ id: id }).del();
+    return contact;
   },
 };

@@ -3,19 +3,18 @@ import Contacts from "../models/Contacts";
 import { deleteFile } from "../services/files";
 
 export default new (class ContactController {
-  async show(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
-    const findContact = await Contacts.show(id);
-
-    if (!findContact) return res.json({ Error: "Contact not found." });
-
-    return res.json({ findContact });
-  }
-
   async index(req: Request, res: Response): Promise<Response> {
     const contacts = await Contacts.index();
 
     return res.json({ contacts });
+  }
+
+  async show(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const findContact = await Contacts.show(id);
+    if (!findContact) return res.json({ Error: "Contact not found." });
+
+    return res.json({ findContact });
   }
 
   async create(req: Request, res: Response): Promise<Response> {

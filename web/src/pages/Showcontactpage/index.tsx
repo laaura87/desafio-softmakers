@@ -22,6 +22,30 @@ const Showcontactpage: React.FC = () => {
       .then((response) => setContact(response.data.findContact));
   }, []);
 
+  function handleRemove() {
+    const confirmRemove = window.confirm('Deseja apagar o contato?');
+
+    if (confirmRemove) {
+      const url = `http://localhost:3050/contacts/${id}`;
+
+      api.delete(url).then((response) => console.log(response.data));
+    }
+  }
+
+  if (!contact) {
+    return (
+      <Container className="contact-not-found">
+        <h1>Contato não encontrado</h1>
+        <LeftSection>
+          <Link to="/">
+            <FaArrowLeft />
+            <span>Voltar para o início</span>
+          </Link>
+        </LeftSection>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <LeftSection>
@@ -63,7 +87,9 @@ const Showcontactpage: React.FC = () => {
         </Information>
         <Buttons>
           <Button title="Editar" />
-          <Button title="Apagar" className="delete" />
+          <Link to="/" onClick={handleRemove}>
+            <Button title="Apagar" className="delete" />
+          </Link>
         </Buttons>
       </RightSection>
     </Container>

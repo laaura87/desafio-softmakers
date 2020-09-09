@@ -15,7 +15,6 @@ const Homepage: React.FC = () => {
       setContacts(response.data.contacts);
     });
   }, []);
-
   return (
     <Container>
       <h1>Contatos</h1>
@@ -24,9 +23,8 @@ const Homepage: React.FC = () => {
           <Button title="Adicionar Contato" />
         </Buttons>
         <GridContainer>
-          {contacts?.map((item) => (
-            <CardContact key={item.id} {...item} />
-          ))}
+          {contacts.map &&
+            contacts?.map((item) => <CardContact key={item.id} {...item} />)}
         </GridContainer>
       </Content>
     </Container>

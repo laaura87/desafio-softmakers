@@ -16,12 +16,13 @@ const Homepage: React.FC = () => {
       setContacts(response.data.contacts);
     });
   }, []);
+
   return (
     <Container>
       <h1>Contatos</h1>
       <Content>
         <Buttons>
-          <Link to="/cadastrar">
+          <Link to="/signup">
             <Button title="Adicionar Contato" />
           </Link>
         </Buttons>

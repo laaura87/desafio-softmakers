@@ -5,12 +5,14 @@ import './styles/GlobalStyles.css';
 
 import Homepage from './pages/Homepage/';
 import Showcontactpage from './pages/Showcontactpage';
+import Signuppage from './pages/Signuppage';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact={true} component={Homepage} />
+        <Route path="/signup" exact={true} component={Signuppage} />
         <Route path="/:id" exact={true} component={Showcontactpage} />
       </Switch>
     </BrowserRouter>

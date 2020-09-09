@@ -6,6 +6,7 @@ import CardContact from '../../components/CardContact';
 
 import api from '../../services/api';
 import { Contact } from '../../@types';
+import { Link } from 'react-router-dom';
 
 const Homepage: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -20,7 +21,9 @@ const Homepage: React.FC = () => {
       <h1>Contatos</h1>
       <Content>
         <Buttons>
-          <Button title="Adicionar Contato" />
+          <Link to="/cadastrar">
+            <Button title="Adicionar Contato" />
+          </Link>
         </Buttons>
         <GridContainer>
           {contacts.map &&

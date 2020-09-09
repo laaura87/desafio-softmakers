@@ -5,5 +5,10 @@ export interface Contact {
   surname: string;
   phone: string;
   email: string;
-  adress: string;
+  cep?: string;
+  state: string;
+  city: string;
+  street: string;
+  neighborhood: string;
+  number?: string;
 }

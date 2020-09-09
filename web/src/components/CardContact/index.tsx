@@ -23,10 +23,10 @@ const CardContact: React.FC<Contact> = (props) => {
         <Link to="/">
           <Button title="Editar" />
         </Link>
-        <Link to="/">
+        <Link to={`/${props.id}`}>
           <Button title="Visualizar" />
         </Link>
-        <Link to="/" className="delete">
+        <Link to="" className="delete">
           <Button title="Apagar" />
         </Link>
       </div>

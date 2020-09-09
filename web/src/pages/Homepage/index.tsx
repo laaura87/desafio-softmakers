@@ -11,7 +11,7 @@ const Homepage: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
-    api.get('/').then((response) => {
+    api.get('/contacts').then((response) => {
       setContacts(response.data.contacts);
     });
   }, []);

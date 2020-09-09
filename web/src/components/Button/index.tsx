@@ -4,12 +4,13 @@ import { Container } from './styles';
 
 type Text = {
   title: string;
+  className?: string;
 };
 
-const Button: React.FC<Text> = ({ title }: Text) => {
+const Button: React.FC<Text> = ({ title, className }: Text) => {
   return (
     <Container>
-      <button>{title}</button>
+      <button className={className}>{title}</button>
     </Container>
   );
 };

@@ -37,7 +37,7 @@ const Signuppage: React.FC = () => {
       formData.append('number', data.number);
       formData.append('phone', data.name);
 
-      await api.post('/contacts', formData);
+      await api.post('/contacts/', formData);
       window.alert('Contato criado com sucesso!');
       history.push('/');
     } catch (error) {

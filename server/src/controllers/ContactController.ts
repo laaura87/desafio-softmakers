@@ -72,7 +72,7 @@ export default new (class ContactController {
     } = req.body;
 
     const contact = {
-      image: req.file.filename,
+      image: req.file?.filename,
       name,
       surname,
       phone,

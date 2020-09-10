@@ -16,13 +16,32 @@ export const Content = styled.div`
   border-radius: 8px;
   background-color: #e4e3e5;
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
 `;
 
+export const ImgContainer = styled.div`
+  width: 100%;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  > img {
+    margin-top: 20px;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    border: 1px solid grey;
+  }
+`;
+
 export const LabelForm = styled.div`
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 90%;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
@@ -42,6 +61,7 @@ export const LabelForm = styled.div`
     border: 1px solid grey;
     outline: none;
     padding: 5px;
+    width: 70%;
     border-radius: 8px;
   }
 
@@ -51,19 +71,22 @@ export const LabelForm = styled.div`
 `;
 
 export const InputFile = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 60%;
+  margin: 10px auto;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid grey;
-  padding: 10px;
+  padding: 16px;
   border-radius: 8px;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 export const ButtonsContainer = styled.div`
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 90%;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   a {

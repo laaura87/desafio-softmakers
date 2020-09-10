@@ -10,6 +10,7 @@ import {
   LabelForm,
   InputFile,
   ButtonsContainer,
+  ImgContainer,
 } from './styles';
 
 import Button from '../../components/Button';
@@ -65,6 +66,12 @@ const Signuppage: React.FC = () => {
       <h1>Cadastrar</h1>
 
       <Content>
+        <ImgContainer>
+          <img
+            src={`https://api.adorable.io/avatars/200/${Math.random() * 10}`}
+            alt=""
+          />
+        </ImgContainer>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputFile>
             <input type="file" ref={register} name="image" />

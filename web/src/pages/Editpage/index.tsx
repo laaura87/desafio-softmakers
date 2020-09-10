@@ -10,6 +10,7 @@ import {
   LabelForm,
   InputFile,
   ButtonsContainer,
+  ImgContainer,
 } from './styles';
 
 import Button from '../../components/Button';
@@ -21,6 +22,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 const Editpage: React.FC = () => {
   const history = useHistory();
   const { id } = useParams();
+  const [image, setImage] = useState();
 
   const { register, handleSubmit, watch, setValue } = useForm<Contact>({});
 
@@ -55,8 +57,7 @@ const Editpage: React.FC = () => {
         .replace(/([()-])/g, '')
         .replace(/^\s*/, '')
         .replace(/\s*$/, '');
-
-      console.log(phoneFormated);
+      setImage(response?.data?.findContact?.image);
       setValue('name', response?.data?.findContact.name);
       setValue('surname', response?.data?.findContact.surname);
       setValue('phone', phoneFormated);
@@ -85,11 +86,15 @@ const Editpage: React.FC = () => {
 
   useEffect(setValues, []);
   useEffect(adressByCep, [watch('cep')]);
-
+  console.log(image);
   return (
     <Container>
       <h1>Editar Contato</h1>
       <Content>
+        <ImgContainer>
+          <img src={`http://localhost:3050/uploads/${image}`} alt="" />
+        </ImgContainer>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputFile>
             <input type="file" ref={register} name="image" />

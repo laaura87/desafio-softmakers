@@ -88,7 +88,8 @@ export default new (class ContactController {
     };
 
     try {
-      await Contacts.update(contact);
+      const updateContact = await Contacts.update(contact);
+      deleteFile(updateContact.image);
 
       return res.status(201).send();
     } catch (error) {

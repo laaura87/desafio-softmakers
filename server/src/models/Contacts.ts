@@ -27,8 +27,10 @@ export default {
   async create(contact: Contact): Promise<Contact> {
     return await table().insert(contact);
   },
-  async update(contact: Contact): Promise<Contact | number> {
-    return await table().update(contact).where({ id: contact.id });
+  async update(contact: Contact): Promise<Contact> {
+    const contactId = await table().where({ id: contact.id }).first();
+    await table().update(contact).where({ id: contact.id });
+    return contactId;
   },
   async destroy(id: string | number): Promise<Contact> {
     const contact = await table().where({ id: id }).first();

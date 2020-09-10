@@ -1,8 +1,10 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
-const Editpage: React.FC = () => {
+import { Contact } from '../../@types';
+
+const Editpage: React.FC<Contact> = (props) => {
   return <div />;
 };
 

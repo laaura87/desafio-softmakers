@@ -13,14 +13,8 @@ import { useParams, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 
 const Showcontactpage: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<any>();
   const [contact, setContact] = useState<Contact>();
-
-  useEffect(() => {
-    api
-      .get(`/contacts/${id}`)
-      .then((response) => setContact(response.data.findContact));
-  }, []);
 
   function handleRemove() {
     const confirmRemove = window.confirm('Deseja apagar o contato?');
@@ -31,6 +25,12 @@ const Showcontactpage: React.FC = () => {
       api.delete(url).then((response) => console.log(response.data));
     }
   }
+
+  useEffect(() => {
+    api
+      .get(`/contacts/${id}`)
+      .then((response) => setContact(response.data.findContact));
+  }, []);
 
   if (!contact) {
     return (
@@ -86,7 +86,9 @@ const Showcontactpage: React.FC = () => {
           </div>
         </Information>
         <Buttons>
-          <Button title="Editar" />
+          <Link to={`/${id}/edit`}>
+            <Button title="Editar" />
+          </Link>
           <Link to="/" onClick={handleRemove}>
             <Button title="Apagar" className="delete" />
           </Link>

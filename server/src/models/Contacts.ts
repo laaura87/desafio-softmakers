@@ -1,25 +1,25 @@
 import db from "../database/connection";
+import { Contact } from "../@types";
 
-export interface Contact {
-  id?: number | string;
-  image: string;
-  name: string;
-  surname: string;
-  phone: string;
-  email: string;
-  cep?: string;
-  state: string;
-  city: string;
-  street: string;
-  neighborhood: string;
-  number?: string;
+interface IndexParams {
+  page: number;
+  itemsPerPage: number;
 }
 
 const table = () => db("contact");
 
 export default {
-  async index(): Promise<Contact | any[]> {
-    return await table().select("*");
+  async count(): Promise<number> {
+    const result = await table().count(`id`);
+
+    return parseInt(result[0].count as string, 10);
+  },
+
+  async index({ page, itemsPerPage }: IndexParams): Promise<Contact | any[]> {
+    return await table()
+      .select("*")
+      .offset((page - 1) * itemsPerPage)
+      .limit(itemsPerPage);
   },
   async show(id: string | number): Promise<Contact> {
     return await table().where({ id: id }).first();

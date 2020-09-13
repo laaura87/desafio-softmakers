@@ -1,14 +1,21 @@
 export interface Contact {
   id?: number | string;
   image: string;
-  name: string; //done
-  surname: string; //done
-  phone: string; //done
-  email: string; //done
-  state: string; //done
-  city: string; //done
-  street: string; //done
+  name: string;
+  surname: string;
+  phone: string;
+  email: string;
+  state: string;
+  city: string;
+  street: string;
   neighborhood: string;
   number: string;
   cep: string;
+}
+
+export interface Pages {
+  count: number;
+  pages: number;
+  itemsPerPage: number;
+  page: number;
 }

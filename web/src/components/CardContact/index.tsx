@@ -14,6 +14,7 @@ const CardContact: React.FC<Contact> = (props) => {
       const url = `http://localhost:3050/contacts/${props.id}`;
 
       api.delete(url).then((response) => console.log(response.data));
+      window.location.reload();
     }
   }
   return (

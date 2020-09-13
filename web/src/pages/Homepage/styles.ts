@@ -12,6 +12,7 @@ export const Container = styled.div`
 `;
 export const Content = styled.div`
   margin-top: 20px;
+  margin-bottom: 30px;
   padding: 10px;
   border-radius: 8px;
   background-color: #e4e3e5;

@@ -18,9 +18,7 @@ export default new (class ContactController {
         contacts,
       });
     } catch (error) {
-      return res.status(500).json({
-        error: "Unexpected error when show contacts.",
-      });
+      return res.status(500).send("Unexpected error when show contacts.");
     }
   }
 
@@ -29,8 +27,7 @@ export default new (class ContactController {
       const { id } = req.params;
       const findContact = await Contacts.show(id);
 
-      if (!findContact)
-        return res.status(404).send({ Error: "Contact not found." });
+      if (!findContact) return res.status(404).send("Contact not found.");
 
       return res.json({ findContact });
     } catch (error) {
@@ -46,11 +43,11 @@ export default new (class ContactController {
       };
 
       await Contacts.create(contact);
-      return res.status(201).send();
+      return res.status(201).send("Contact created.");
     } catch (error) {
-      return res.status(500).json({
-        error: "Unexpected error when creating new contact.",
-      });
+      return res
+        .status(500)
+        .send("Unexpected error when creating new contact.");
     }
   }
 
@@ -68,11 +65,9 @@ export default new (class ContactController {
 
       deleteFile(updateContact.image);
 
-      return res.status(201).send();
+      return res.status(200).send("Updated contact.");
     } catch (error) {
-      return res.status(500).json({
-        error: "Unexpected error while editing contact",
-      });
+      return res.status(500).send("Unexpected error while editing contact");
     }
   }
 
@@ -81,12 +76,10 @@ export default new (class ContactController {
       const { id } = req.params;
       const deletedContact = await Contacts.destroy(id);
       deleteFile(deletedContact.image);
-      if (!deletedContact) return res.json({ error: "Contact not found" });
-      return res.json({ Messege: "Contact successfully deleted" });
+      if (!deletedContact) return res.send("Contact not found");
+      return res.send("Contact successfully deleted");
     } catch (error) {
-      return res
-        .status(500)
-        .json({ error: "Unexpected error when deleting contact" });
+      return res.status(500).send("Unexpected error when deleting contact");
     }
   }
 })();
